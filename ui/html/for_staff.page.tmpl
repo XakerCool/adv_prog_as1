@@ -1,0 +1,27 @@
+{{ template "base" . }}
+
+{{ define "title" }} For students {{ end }}
+
+{{ define "styles" }}
+<link rel="stylesheet" href="/static/css/for_students.css">
+{{ end }}
+{{ define "scripts" }}
+{{end}}
+
+{{ define "main" }}
+<h1 class="heading">All latest articles special for staff</h1>
+<div class="articles">
+    <ul class="articles_list">
+        {{ range . }}
+            <li class="article_list_item">
+                <h2>{{.Title}}</h2>
+                <h3>{{.Category}}</h3>
+                <h3>{{.Author}}</h3>
+                <p>Description: {{.Description}}
+                <p>Published at: {{.PublishedAt}}</p>
+                <h5>Readership: {{.Readership}}</h5>
+            </li>
+        {{ end }}
+    </ul>
+</div>
+{{ end }}

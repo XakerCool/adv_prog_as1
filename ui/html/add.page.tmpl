@@ -1,0 +1,29 @@
+{{ template "base" . }}
+
+{{ define "title" }} Write article {{ end }}
+
+{{ define "styles" }}
+<link rel="stylesheet" href="/static/css/edit.css">
+{{ end }}
+{{ define "scripts" }}
+<script src="/static/js/create.js"></script>
+{{ end }}
+
+{{ define "main" }}
+<h1 class="heading">Write new article</h1>
+<div class="article_edit">
+    <p class="label">Title</p>
+    <input class="edit_input" type="text" id="title">
+    <p class="label">Author</p>
+    <input class="edit_input" type="text" id="author">
+    <p class="label">Category</p>
+    <input class="edit_input" type="text" id="category">
+    <p class="label">Readership</p>
+    <input class="edit_input" type="text" id="readership">
+    <p class="label">Description</p>
+    <textarea class="edit_input edit_textarea" id="description"></textarea>
+    <p class="label">Content</p>
+    <textarea class="edit_input edit_textarea" id="content"></textarea>
+    <button class="submit_button" onclick="create()">Create</button>
+</div>
+{{ end }}
