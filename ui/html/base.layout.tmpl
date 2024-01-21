@@ -1,0 +1,32 @@
+{{ define "base" }}
+<!doctype html>
+<html lang='en'>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ template "title" .}} page</title>
+        <link rel="stylesheet" href="/static/css/nullstyle.css">
+        <link rel="stylesheet" href="/static/css/header.css">
+        <link rel="stylesheet" href="/static/css/articles.css">
+        {{ template "styles" .}}
+        {{ template "scripts" .}}
+    </head>
+    <body>
+        <header class="header">
+                <a href="/">Home page</a>
+                <div  class="categories_link">
+                    <a href="/categories">Categories</a>
+                    <ul class="header_list">
+                        <li><a href="/categories?readership=students">For students</a></li>
+                        <li><a href="/categories?readership=staff">For staff</a></li>
+                        <li><a href="/categories?readership=applicants">For applicants</a></li>
+                    </ul>
+                </div>
+                <a href="/add">Add article</a>
+        </header>
+
+        <main>
+            {{ template "main" .}}
+        </main>
+    </body>
+</html>
+{{ end }}

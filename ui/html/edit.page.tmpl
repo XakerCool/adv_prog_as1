@@ -1,0 +1,29 @@
+{{ template "base" . }}
+
+{{ define "title" }} Edit {{ end }}
+
+{{ define "styles" }}
+<link rel="stylesheet" href="/static/css/edit.css">
+{{ end }}
+{{ define "scripts" }}
+<script src="/static/js/update.js"></script>
+{{ end }}
+
+{{ define "main" }}
+<h1 class="heading">Edit {{.ID}} article</h1>
+<div class="article_edit">
+    <p class="label">Title</p>
+    <input class="edit_input" type="text" value="{{.Title}}" id="title">
+    <p class="label">Author</p>
+    <input class="edit_input" type="text" value="{{.Author}}" id="author">
+    <p class="label">Category</p>
+    <input class="edit_input" type="text" value="{{.Category}}" id="category">
+    <p class="label">Readership</p>
+    <input class="edit_input" type="text" value="{{.Readership}}" id="readership">
+    <p class="label">Description</p>
+    <textarea class="edit_input edit_textarea" id="description">{{.Description}}</textarea>
+    <p class="label">Content</p>
+    <textarea class="edit_input edit_textarea" id="content">{{.Content}}</textarea>
+    <button class="submit_button" onclick="send()">Submit changes</button>
+</div>
+{{ end }}
