@@ -26,14 +26,13 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	}
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 		return
 	}
 	err = ts.Execute(w, articles)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
+		return
 	}
 }
 
@@ -54,14 +53,12 @@ func (app *application) byCategory(w http.ResponseWriter, r *http.Request) {
 	}
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 		return
 	}
 	err = ts.Execute(w, articles)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 	}
 }
 func (app *application) edit(w http.ResponseWriter, r *http.Request) {
@@ -77,14 +74,12 @@ func (app *application) edit(w http.ResponseWriter, r *http.Request) {
 	}
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 		return
 	}
 	err = ts.Execute(w, article)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 	}
 }
 func (app *application) update(w http.ResponseWriter, r *http.Request) {
@@ -99,8 +94,8 @@ func (app *application) update(w http.ResponseWriter, r *http.Request) {
 
 	result, err := app.articles.Update(id, updatedArticle.Category, updatedArticle.Author, updatedArticle.Title, updatedArticle.Description, updatedArticle.Content, updatedArticle.Readership)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
+		return
 	}
 	fmt.Println(result)
 }
@@ -109,11 +104,10 @@ func (app *application) delete(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(r.URL.Query().Get("id"))
 	_, err := app.articles.Delete(id)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 	}
-
 }
+
 func (app *application) add(w http.ResponseWriter, r *http.Request) {
 	files := []string{
 		"./ui/html/add.page.tmpl",
@@ -121,29 +115,25 @@ func (app *application) add(w http.ResponseWriter, r *http.Request) {
 	}
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 		return
 	}
 	err = ts.Execute(w, nil)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 	}
 }
 func (app *application) create(w http.ResponseWriter, r *http.Request) {
 	var createdArticle *models.Article
 	err := json.NewDecoder(r.Body).Decode(&createdArticle)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Failed to decode JSON request", http.StatusBadRequest)
+		app.clientError(w, 400)
 		return
 	}
 
 	result, err := app.articles.Insert(createdArticle.Category, createdArticle.Author, createdArticle.Readership, createdArticle.Title, createdArticle.Description, createdArticle.Content)
 	if err != nil {
-		log.Println(err.Error())
-		http.Error(w, "Internal Server Error", 500)
+		app.serverError(w, err)
 	}
 	fmt.Println(result)
 }

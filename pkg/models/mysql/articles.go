@@ -32,17 +32,17 @@ func (m *ArticleModel) Latest() ([]*models.Article, error) {
 	}
 	defer rows.Close()
 
-	articles := []*models.Article{}
+	articles, err := appendInfo(rows)
 
-	for rows.Next() {
-		a := &models.Article{}
-
-		err = rows.Scan(&a.ID, &a.Category, &a.Author, &a.Readership, &a.Title, &a.Description, &a.Content, &a.PublishedAt)
-		if err != nil {
-			return nil, err
-		}
-		articles = append(articles, a)
-	}
+	//for rows.Next() {
+	//	a := &models.Article{}
+	//
+	//	err = rows.Scan(&a.ID, &a.Category, &a.Author, &a.Readership, &a.Title, &a.Description, &a.Content, &a.PublishedAt)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	articles = append(articles, a)
+	//}
 
 	if err = rows.Err(); err != nil {
 		return nil, err
@@ -59,17 +59,17 @@ func (m *ArticleModel) GetByCategory(readership string) ([]*models.Article, erro
 	}
 	defer rows.Close()
 
-	articles := []*models.Article{}
+	articles, err := appendInfo(rows)
 
-	for rows.Next() {
-		a := &models.Article{}
-
-		err = rows.Scan(&a.ID, &a.Category, &a.Author, &a.Readership, &a.Title, &a.Description, &a.Content, &a.PublishedAt)
-		if err != nil {
-			return nil, err
-		}
-		articles = append(articles, a)
-	}
+	//for rows.Next() {
+	//	a := &models.Article{}
+	//
+	//	err = rows.Scan(&a.ID, &a.Category, &a.Author, &a.Readership, &a.Title, &a.Description, &a.Content, &a.PublishedAt)
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//	articles = append(articles, a)
+	//}
 
 	if err = rows.Err(); err != nil {
 		return nil, err
@@ -115,4 +115,18 @@ func (m *ArticleModel) Update(id, category, author, title, description, content,
 		return false, err
 	}
 	return true, nil
+}
+
+func appendInfo(rows *sql.Rows) ([]*models.Article, error) {
+	articles := []*models.Article{}
+	for rows.Next() {
+		a := &models.Article{}
+
+		err := rows.Scan(&a.ID, &a.Category, &a.Author, &a.Readership, &a.Title, &a.Description, &a.Content, &a.PublishedAt)
+		if err != nil {
+			return nil, err
+		}
+		articles = append(articles, a)
+	}
+	return articles, nil
 }
