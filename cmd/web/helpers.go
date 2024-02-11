@@ -13,6 +13,8 @@ func (app *application) serverError(w http.ResponseWriter, err error) {
 	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 }
 func (app *application) clientError(w http.ResponseWriter, status int) {
+	w.WriteHeader(status)
+	w.Header().Set("Content-Type", "application/json")
 	http.Error(w, http.StatusText(status), status)
 }
 func (app *application) notFound(w http.ResponseWriter) {

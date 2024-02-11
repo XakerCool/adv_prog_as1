@@ -1,0 +1,18 @@
+.login_register_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+label {
+    width: 100%;
+    margin: 5px 0;
+    display: flex;
+    flex-direction: column;
+}
+label input {
+    width: 100%;
+}
+label select {
+    width: 100%;
+}

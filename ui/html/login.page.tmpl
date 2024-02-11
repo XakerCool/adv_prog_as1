@@ -1,0 +1,27 @@
+{{ template "base" . }}
+
+{{ define "title" }} Home {{ end }}
+
+{{ define "styles" }}
+<link rel="stylesheet" href="/static/css/home.css">
+<link rel="stylesheet" href="/static/css/login_register.css">
+{{ end }}
+
+{{ define "scripts" }}
+<script src="/static/js/login.js"></script>
+{{end}}
+
+{{ define "main" }}
+<h1 class="heading">Login page</h1>
+<form method="POST" action="/login" class="login_register_form" id="login_form">
+    <label>
+        Email
+        <input placeholder="Email" id="user_email" type="text">
+    </label>
+    <label>
+        Password
+        <input placeholder="Password" id="user_password" type="password">
+    </label>
+    <button type="submit" id="login_button" disabled>Login</button>
+</form>
+{{ end }}

@@ -1,0 +1,13 @@
+{{ template "base" . }}
+
+{{ define "title" }} Not allowed to write article {{ end }}
+
+{{ define "styles" }}
+<link rel="stylesheet" href="/static/css/notAllowed.css">
+{{ end }}
+{{ define "scripts" }}
+{{ end }}
+
+{{ define "main" }}
+<h1 class="heading">You cannot create articles. because you are a {{ .Role }} {{if eq .Role "teacher"}} And admin hadn't approved you yet{{end}}</h1>
+{{ end }}

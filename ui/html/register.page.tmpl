@@ -1,0 +1,46 @@
+{{ template "base" . }}
+
+{{ define "title" }} Home {{ end }}
+
+{{ define "styles" }}
+<link rel="stylesheet" href="/static/css/home.css">
+<link rel="stylesheet" href="/static/css/login_register.css">
+{{ end }}
+
+{{ define "scripts" }}
+<script src="/static/js/register.js"></script>
+{{end}}
+
+{{ define "main" }}
+<h1 class="heading">Register page</h1>
+<form method="POST" action="/register" class="login_register_form" id="register_form">
+    <label>
+        First name
+        <input placeholder="First name" id="user_first_name" type="text" required>
+    </label>
+    <label>
+        Second name
+        <input placeholder="Second name" id="user_second_name" type="text" required>
+    </label>
+    <label>
+        Role
+        <select id="user_role" required>
+            <option value="student" selected>Student</option>
+            <option value="teacher">Teacher</option>
+        </select>
+    </label>
+    <label>
+        Email
+        <input placeholder="Email" id="user_email" type="text" required>
+    </label>
+    <label>
+        Password
+        <input placeholder="Password" id="user_password" type="password" required>
+    </label>
+    <label>
+        Confirm password
+        <input placeholder="Confirm password" id="user_confirm_password" type="password" required>
+    </label>
+    <button type="submit" id="register_button" disabled>Register</button>
+</form>
+{{ end }}

@@ -1,0 +1,16 @@
+.teachers {
+    width: 100%;
+
+}
+.teachers_table {
+    width: 95%;
+    border-collapse: collapse;
+}
+tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+th {
+    border: 1px solid black;
+}

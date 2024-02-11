@@ -1,0 +1,24 @@
+{{ define "styles" }}
+<link rel="stylesheet" href="/static/css/approve.css">
+{{ end }}
+{{ define "scripts" }}
+{{ end }}
+
+{{ define "main" }}
+<div class="teachers">
+    <table class="teachers_table>
+        <tbody>
+            {{ range . }}
+                <tr class="teacher">
+                    <th>{{ .FullName }}</th>
+                    <th>{{ .Email }}</th>
+                    <th>{{ .Role }}</th>
+                    <th>
+                        <button class="approve_btn">Approve</button>
+                    </th>
+                </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+{{end}}

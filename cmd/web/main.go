@@ -11,14 +11,16 @@ import (
 )
 
 type application struct {
-	errorLog *log.Logger
-	infoLog  *log.Logger
-	articles *mysql.ArticleModel
+	errorLog    *log.Logger
+	infoLog     *log.Logger
+	articles    *mysql.ArticleModel
+	departments *mysql.DepartmentModel
+	users       *mysql.UserModel
 }
 
 func main() {
 	addr := flag.String("addr", ":3000", "HTTP network address")
-	dsn := flag.String("dsn", "root:WheelyStrongPwd@/articles?parseTime=true", "articles")
+	dsn := flag.String("dsn", "root:root@/articles?parseTime=true", "articles")
 	flag.Parse()
 
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
@@ -31,9 +33,11 @@ func main() {
 	defer db.Close()
 
 	app := &application{
-		errorLog: errorLog,
-		infoLog:  infoLog,
-		articles: &mysql.ArticleModel{DB: db},
+		errorLog:    errorLog,
+		infoLog:     infoLog,
+		articles:    &mysql.ArticleModel{DB: db},
+		departments: &mysql.DepartmentModel{DB: db},
+		users:       &mysql.UserModel{DB: db},
 	}
 
 	srv := &http.Server{
